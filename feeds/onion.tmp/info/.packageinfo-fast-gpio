@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/fast-gpio/Makefile
+
+Package: fast-gpio
+Submenu: Utilities
+Version: 0.2-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +onion-sh-lib +USE_UCLIBCXX:uclibcxx +USE_LIBSTDCXX:libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Tool to enable GPIO access and software PWM support
+Maintainer: 
+Source: fast-gpio-0.2-1.tar.gz
+Type: ipkg
+Description: Tool to enable GPIO access and PWM support
+
+@@
+
+

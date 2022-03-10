@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/base-www/Makefile
+
+Package: base-www
+Submenu: Utilities
+Version: 0.3-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Files for website hosting on the Omega to ensure compatibility between Onion utilities
+Maintainer: 
+Source: base-www-0.3.tar.gz
+Type: ipkg
+Description: Files for website hosting on the Omega to ensure compatibility between Onion utilities
+
+@@
+
+

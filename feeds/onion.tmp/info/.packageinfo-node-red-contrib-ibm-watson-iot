@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/node-red-contrib-ibm-watson-iot/Makefile
+
+Package: node-red-contrib-ibm-watson-iot
+Submenu: Node-RED
+Version: 0.2.8-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libpthread +libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: node-red-contrib-ibm-watson-iot Package
+Maintainer: 
+Source: node-red-contrib-ibm-watson-iot.tar.gz
+Type: ipkg
+Description: node-red-contrib-ibm-watson-iot package built for MIPS
+
+@@
+
+

@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/omega2pro/Makefile
+
+Package: omega2-pro-base
+Submenu: Utilities
+Version: 1.0.3-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +fdisk +e2fsprogs +block-mount +swap-utils +tar @TARGET_DEVICE_ramips_mt76x8_DEVICE_omega2pro
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Omega2 Pro base packages and configuration
+Maintainer: 
+Source: 
+Type: ipkg
+Description: Omega2 Pro base packages and configuration
+
+@@
+
+

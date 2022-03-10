@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/blynk-library/Makefile
+
+Package: blynk-library
+Submenu: Libraries
+Version: 0.4.5-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libpthread +libstdcpp +nodejs
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: blynk-library
+Maintainer: 
+Source: blynk-library-0.4.5.tar.gz
+Type: ipkg
+Description: Blynk library package built for mips.Updated:No Node Dependencies 
+
+@@
+
+

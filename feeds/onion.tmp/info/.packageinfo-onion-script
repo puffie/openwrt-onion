@@ -1,0 +1,39 @@
+Source-Makefile: feeds/onion/onion-script/Makefile
+
+Package: onion-script
+Submenu: Utilities
+Version: 0.3-8
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +wget +bc
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Command to help with Onion product automation
+Maintainer: 
+Source: onion-script-0.3-8.tar.gz
+Type: ipkg
+Description: Command to help with Onion product automation
+
+@@
+
+Package: ethernet-mode
+Submenu: Utilities
+Version: 0.3-8
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread onion-script
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Program to help automate production-time ethernet configuration
+Maintainer: 
+Source: onion-script-0.3-8.tar.gz
+Type: ipkg
+Description: Program to help automate production-time ethernet configuration
+
+@@
+
+

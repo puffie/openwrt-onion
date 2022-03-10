@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/p44ledchaintest/Makefile
+
+Package: p44ledchaintest
+Submenu: Utilities
+Version: 1.1-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: plan44
+Category: plan44
+Repository: base
+Title: p44ledchaintest utility
+Maintainer: luz@plan44.ch
+Source: 
+Type: ipkg
+Description:   tool to (stress) test p44-ledchain kernel driver
+luz@plan44.ch
+@@
+
+

@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onion-service/Makefile
+
+Package: onion-service
+Submenu: Onion
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libubus +libubox
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: network
+Category: Network
+Repository: base
+Title: Service for communicating with Onion Cloud
+Maintainer: 
+Source: onion-service.tar.gz
+Type: ipkg
+Description: Service for communicating with Onion Cloud
+
+@@
+
+

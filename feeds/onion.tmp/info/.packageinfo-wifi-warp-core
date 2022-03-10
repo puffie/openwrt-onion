@@ -1,0 +1,22 @@
+Source-Makefile: feeds/onion/wifi-warp-core/Makefile
+
+Package: wifi-warp-core
+Submenu: WiFi
+Version: 0.1.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @(TARGET_ramips_mt7688||TARGET_ramips_mt76x8) +wireless-tools +maccalc +libuci +coreutils-base64 +libcurl
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion's Enhanced Omega2 MT7688 WiFi Driver
+Maintainer: 
+Source: wifi-warp-core-0.1.1-1.tar.gz
+License: GPL-2.0
+Type: ipkg
+Description: Onion's Enhanced Omega2 MT7688 WiFi Driver
+
+@@
+
+

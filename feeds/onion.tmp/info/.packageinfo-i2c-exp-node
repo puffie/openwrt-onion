@@ -1,0 +1,57 @@
+Source-Makefile: feeds/onion/i2c-exp-node/Makefile
+
+Package: node-pwm-exp
+Submenu: Libraries
+Version: 0.2-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libonionpwmexp +libpthread +libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Node module for Servo (PWM) Expansion
+Maintainer: 
+Source: i2c-exp-node-addons-0.2.tar.gz
+Type: ipkg
+Description: Node module for Servo (PWM) Expansion
+
+@@
+
+Package: node-relay-exp
+Submenu: Libraries
+Version: 0.2-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libonionrelayexp +libpthread +libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Node module for Relay Expansion
+Maintainer: 
+Source: i2c-exp-node-addons-0.2.tar.gz
+Type: ipkg
+Description: Node module for Relay Expansion
+
+@@
+
+Package: node-oled-exp
+Submenu: Libraries
+Version: 0.2-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libonionoledexp +libpthread +libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Node module for OLED Expansion
+Maintainer: 
+Source: i2c-exp-node-addons-0.2.tar.gz
+Type: ipkg
+Description: Node module for OLED Expansion
+
+@@
+
+

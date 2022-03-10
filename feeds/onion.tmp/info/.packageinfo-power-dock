@@ -1,0 +1,39 @@
+Source-Makefile: feeds/onion/power-dock/Makefile
+
+Package: power-dock
+Submenu: Drivers
+Version: 0.5-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libugpio +liboniondebug
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion Power Dock Application
+Maintainer: 
+Source: power-dock-0.5.tar.gz
+Type: ipkg
+Description: Onion Power Dock Application
+
+@@
+
+Package: power-dock2
+Submenu: Drivers
+Version: 0.5-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +power-dock +bc
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion Power Dock 2 application 
+Maintainer: 
+Source: power-dock-0.5.tar.gz
+Type: ipkg
+Description: Onion Power Dock 2 application
+
+@@
+
+

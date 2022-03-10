@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onion-sh-lib/Makefile
+
+Package: onion-sh-lib
+Submenu: Libraries
+Version: 0.2-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libubox
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library of commonly used code for the Omega
+Maintainer: 
+Source: onion-sh-lib.tar.gz
+Type: ipkg
+Description: Library of commonly used code for the Omega
+
+@@
+
+

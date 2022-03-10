@@ -1,0 +1,39 @@
+Source-Makefile: feeds/onion/arduino-dock/Makefile
+
+Package: arduino-dock
+Submenu: Utilities
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +avrdude
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Tool to enable I2C flashing of HEX files
+Maintainer: 
+Source: arduino-dock-0.1.tar.gz
+Type: ipkg
+Description: Tool to enable I2C flashing of HEX files
+
+@@
+
+Package: arduino-dock-2
+Submenu: Utilities
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +avrdude
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Tools for using Onion Arduino Dock 2
+Maintainer: 
+Source: arduino-dock-0.1.tar.gz
+Type: ipkg
+Description: Tools for using Onion Arduino Dock 2
+
+@@
+
+

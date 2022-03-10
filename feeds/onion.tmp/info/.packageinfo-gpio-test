@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/gpio-test/Makefile
+
+Package: gpio-test
+Submenu: Utilities
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +USE_UCLIBCXX:uclibcxx +USE_LIBSTDCXX:libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Utility to test if GPIO IRQ has been setup properly
+Maintainer: 
+Source: gpio-test.tar.gz
+Type: ipkg
+Description: Utility to test if GPIO IRQ has been setup properly
+
+@@
+
+

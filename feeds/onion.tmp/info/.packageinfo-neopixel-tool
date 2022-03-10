@@ -1,0 +1,75 @@
+Source-Makefile: feeds/onion/neopixel-tool/Makefile
+
+Package: libonionneopixel
+Submenu: Libraries
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +USE_UCLIBCXX:uclibcxx +USE_LIBSTDCXX:libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library that provides functions to interact with Neopixels via the Arduino Dock
+Maintainer: 
+Source: neopixel-tool-0.1.tar.gz
+Type: ipkg
+Description: Library that provides functions to interact with Neopixels via the Arduino Dock
+
+@@
+
+Package: neopixel-tool
+Submenu: Utilities
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libonionneopixel
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Tool to enable use of Neopixels with the Arduino Dock
+Maintainer: 
+Source: neopixel-tool-0.1.tar.gz
+Type: ipkg
+Description: Tool to enable use of Neopixels with the Arduino Dock
+
+@@
+
+Package: pyOmegaArduinoDock
+Submenu: Libraries
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +python-base
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Setup for OmegaArduinoDock Python Package
+Maintainer: 
+Source: neopixel-tool-0.1.tar.gz
+Type: ipkg
+Description: Setup for OmegaArduinoDock Python Package
+
+@@
+
+Package: pyNeopixel
+Submenu: Libraries
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libonionneopixel +python-base +python-ctypes +pyOmegaArduinoDock
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module to control Neopixels via the Arduino Dock
+Maintainer: 
+Source: neopixel-tool-0.1.tar.gz
+Type: ipkg
+Description: Python module to control Neopixels via the Arduino Dock
+
+@@
+
+

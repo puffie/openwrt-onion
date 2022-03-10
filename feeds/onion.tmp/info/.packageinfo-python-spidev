@@ -1,0 +1,39 @@
+Source-Makefile: feeds/onion/python-spidev/Makefile
+
+Package: python-spidev
+Submenu: Libraries
+Version: 4.0.1-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +python-base
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module with object that implements SPI transactions
+Maintainer: 
+Source: python-spidev-4.0.1-2.tar.gz
+Type: ipkg
+Description: Python module with object that implements SPI transactions
+
+@@
+
+Package: python3-spidev
+Submenu: Libraries
+Version: 4.0.1-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +python3-base
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python3 module with object that implements SPI transactions
+Maintainer: 
+Source: python-spidev-4.0.1-2.tar.gz
+Type: ipkg
+Description: Python3 module with object that implements SPI transactions
+
+@@
+
+

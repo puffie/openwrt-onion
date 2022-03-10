@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onion-node-red/Makefile
+
+Package: onion-node-red
+Submenu: Node-RED
+Version: 1.2.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libpthread +libstdcpp +node
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Flow-based development tool for visual programming
+Maintainer: 
+Source: onion-node-red-1.2.9-1.tar.gz
+Type: ipkg
+Description: Flow-based development tool for visual programming
+
+@@
+
+

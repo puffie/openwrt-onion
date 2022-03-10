@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/duktape/Makefile
+
+Package: libduktape
+Submenu: Libraries
+Version: 2.2.0-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Duktape dynamic library
+Maintainer: 
+Source: duktape-2.2.0.tar.gz
+Type: ipkg
+Description: Duktape dynamic library
+
+@@
+
+

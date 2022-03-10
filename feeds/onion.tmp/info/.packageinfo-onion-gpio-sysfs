@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onion-gpio-sysfs/Makefile
+
+Package: pyOnionGpio
+Submenu: Libraries
+Version: 0.2-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +python-base
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module with object that implements programming the GPIOs via the sysfs interface
+Maintainer: 
+Source: onion-gpio-sysfs.tar.gz
+Type: ipkg
+Description: Python module with object that implements programming the GPIOs via the sysfs interface
+
+@@
+
+

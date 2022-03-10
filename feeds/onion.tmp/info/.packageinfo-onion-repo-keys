@@ -1,0 +1,23 @@
+Source-Makefile: feeds/onion/onion-repo-keys/Makefile
+Build-Depends: opkg/host usign/host
+
+Package: onion-repo-keys
+Submenu: Base system
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +SIGNED_PACKAGES:usign
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Signature keys required for Onion Package Repo
+Maintainer: 
+Source: 
+License: GPL-2.0
+Type: ipkg
+Description: Signature keys required for Onion Package Repo
+
+@@
+
+

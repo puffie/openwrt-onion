@@ -1,0 +1,49 @@
+Source-Makefile: feeds/onion/i2c-tools/Makefile
+Build-Depends: PACKAGE_python-smbus:python
+
+Package: i2c-tools
+Version: 3.0.3-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: I2C tools for Linux
+Maintainer: 
+Source: i2c-tools-3.0.3.tar.bz2
+Type: ipkg
+Description:  This package contains an heterogeneous set of I2C tools for x. These tools
+ were originally part of the lm-sensors package.
+ Includes:
+ - i2cdetect
+ - i2cdump
+ - i2cget
+ - i2cset
+http://www.lm-sensors.org/wiki/I2CTools
+
+@@
+
+Package: python-smbus
+Submenu: Python
+Version: 3.0.3-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +PACKAGE_python-smbus:python-mini +i2c-tools
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: lang
+Category: Languages
+Repository: base
+Title: Python bindings for the SMBUS
+Maintainer: 
+Source: i2c-tools-3.0.3.tar.bz2
+Type: ipkg
+Description:  This package contains an heterogeneous set of I2C tools for x.
+
+ This package contain the python bindings for Linux SMBus ss through i2c-dev.
+http://www.lm-sensors.org/wiki/I2CTools
+
+@@
+
+

@@ -1,0 +1,93 @@
+Source-Makefile: feeds/onion/onion-console/Makefile
+
+Package: onion-console-base
+Submenu: Console
+Version: 0.1.4-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +rpcd
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Web-based virtual desktop for the Omega, base contains settings and status app
+Maintainer: 
+Source: onion-console-0.1.4.tar.gz
+Type: ipkg
+Description: Web-based virtual desktop for the Omega. Base package, only includes a few Apps. 
+
+@@
+
+Package: onion-console-terminal
+Submenu: Console
+Version: 0.1.4-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +rpcd +onion-console-base +shellinabox
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion-Terminal
+Maintainer: 
+Source: onion-console-0.1.4.tar.gz
+Type: ipkg
+Description: Terminal App for the console
+
+@@
+
+Package: onion-console-editor
+Submenu: Console
+Version: 0.1.4-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +rpcd +onion-console-base +cgi-io
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion-Editor
+Maintainer: 
+Source: onion-console-0.1.4.tar.gz
+Type: ipkg
+Description: Editor App for the Console
+
+@@
+
+Package: onion-console-webcam
+Submenu: Console
+Version: 0.1.4-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +rpcd +onion-console-base +mjpg-streamer
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion-Webcam
+Maintainer: 
+Source: onion-console-0.1.4.tar.gz
+Type: ipkg
+Description: Webcam App for the console
+
+@@
+
+Package: onion-console-node-red
+Submenu: Console
+Version: 0.1.4-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +onion-console-base +nodejs
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onion-Node-Red
+Maintainer: 
+Source: onion-console-0.1.4.tar.gz
+Type: ipkg
+Description: Node red app fo the console
+
+@@
+
+

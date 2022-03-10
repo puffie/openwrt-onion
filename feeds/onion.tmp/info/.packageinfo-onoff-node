@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onoff-node/Makefile
+
+Package: onoff-node
+Submenu: Libraries
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libpthread +libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Onoff Package
+Maintainer: 
+Source: onoff-node.tar.gz
+Type: ipkg
+Description: Onoff package built for mips. 
+
+@@
+
+

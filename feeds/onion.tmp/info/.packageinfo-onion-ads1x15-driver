@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onion-ads1x15-driver/Makefile
+
+Package: ads1x15-chip
+Submenu: Drivers
+Version: 0.2-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +USE_UCLIBCXX:uclibcxx +USE_LIBSTDCXX:libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Tool to enable use of ADS1X15 ADC+PGA chip via i2c
+Maintainer: 
+Source: ads1x15-chip.tar.gz
+Type: ipkg
+Description: Tool to enable use of ADS1X15 ADC+PGA chip via I2C
+
+@@
+
+

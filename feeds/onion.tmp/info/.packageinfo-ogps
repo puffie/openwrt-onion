@@ -1,0 +1,22 @@
+Source-Makefile: feeds/onion/ogps/Makefile
+
+Package: ogps
+Submenu: Utilities
+Version: 2017-04-20-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libubox +libubus
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: OpenWrt GPS Daemon
+Maintainer: Lazar Demin <lazar@onion.io>
+Source: ogps-2017-04-20.tar.bz2
+License: GPL-2.0+
+Type: ipkg
+Description: OpenWrt GPS Daemon
+Lazar Demin <lazar@onion.io>
+@@
+
+

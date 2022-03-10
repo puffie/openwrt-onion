@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/onion-ubus/Makefile
+
+Package: onion-ubus
+Submenu: Utilities
+Version: 0.3-2
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +rpcd +iwinfo +oupgrade +libugpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Collection of Onion ubus tools
+Maintainer: 
+Source: onion-ubus-0.3-.tar.gz
+Type: ipkg
+Description: Collection of Onion ubus tools
+
+@@
+
+

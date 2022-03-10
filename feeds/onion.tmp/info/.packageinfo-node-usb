@@ -1,0 +1,21 @@
+Source-Makefile: feeds/onion/node-usb/Makefile
+
+Package: node-usb
+Submenu: Libraries
+Version: 0.1-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libpthread +libstdcpp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: node-usb
+Maintainer: 
+Source: node-usb.tar.gz
+Type: ipkg
+Description: The node-usb package cross compiled for openwrt
+
+@@
+
+

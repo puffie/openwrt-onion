@@ -1,0 +1,363 @@
+Source-Makefile: feeds/onion/i2c-exp-driver/Makefile
+
+Package: liboniondebug
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library used to ease debug
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Library used to ease debug
+
+@@
+
+Package: libonioni2c
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library of I2C communication functions
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Library of I2C communication functions
+
+@@
+
+Package: libonionmcp23008
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library of functions for MCP23008 chip
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Library of functions for MCP23008 chips
+
+@@
+
+Package: libonionpwmexp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library of functions to control the Onion PWM Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Library of functions to control the PWM Expansion
+
+@@
+
+Package: libonionrelayexp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionmcp23008
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library of functions to control the Onion Relay Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Library of functions to control the Onion Relay Expansion
+
+@@
+
+Package: libonionoledexp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Library of functions to control the Onion OLED Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Library of functions to control the Onion OLED Expansion
+
+@@
+
+Package: pwm-exp
+Submenu: Drivers
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionpwmexp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Driver for Servo (PWM) Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Driver for Servo (PWM) Expansion
+
+@@
+
+Package: relay-exp
+Submenu: Drivers
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionmcp23008 +libonionrelayexp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Driver for Relay Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Driver for Relay Expansion
+
+@@
+
+Package: oled-exp
+Submenu: Drivers
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionoledexp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Driver for OLED Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Driver for OLED Expansion
+
+@@
+
+Package: i2c-exp-ubus
+Submenu: Drivers
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +rpcd +onion-sh-lib +pwm-exp +relay-exp
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: I2C-based Expansion ubus integration 
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: I2C-based Expansion ubus integration
+
+@@
+
+Package: pyOmegaExpansion
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +python-base
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Setup for OmegaExpansion Python Package
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Setup for OmegaExpansion Python Package
+
+@@
+
+Package: pyOnionI2C
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +python-base +pyOmegaExpansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module with object that implements I2C transactions
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python module with object that implements I2C transactions
+
+@@
+
+Package: pyPwmExp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionpwmexp +python-base +pyOmegaExpansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module to control the Onion PWM Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python module to control the Onion PWM Expansion
+
+@@
+
+Package: pyRelayExp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionmcp23008 +libonionrelayexp +python-base +pyOmegaExpansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module to control the Onion Relay Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python module to control the Onion Relay Expansion
+
+@@
+
+Package: pyOledExp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionoledexp +python-base +pyOmegaExpansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python module to control the Onion OLED Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python module to control the Onion OLED Expansion
+
+@@
+
+Package: python3-omega-expansion
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +python3-base
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Setup for OmegaExpansion Python3 Package
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Setup for OmegaExpansion Python3 Package
+
+@@
+
+Package: python3-onion-i2c
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +python3-base +python3-omega-expansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python3 module that implements I2C transactions
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python3 module that implements I2C transactions
+
+@@
+
+Package: python3-pwm-exp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionpwmexp +python3-base +python3-omega-expansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python3 module to control the Onion PWM Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python3 module to control the Onion PWM Expansion
+
+@@
+
+Package: python3-relay-exp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionmcp23008 +libonionrelayexp +python3-base +python3-omega-expansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python3 module to control the Onion Relay Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python3 module to control the Onion Relay Expansion
+
+@@
+
+Package: python3-oled-exp
+Submenu: Libraries
+Version: 0.9-1
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +liboniondebug +libonioni2c +libonionoledexp +python3-base +python3-omega-expansion
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: onion
+Category: Onion
+Repository: base
+Title: Python3 module to control the Onion OLED Expansion
+Maintainer: 
+Source: i2c-exp-driver-0.9.tar.gz
+Type: ipkg
+Description: Python3 module to control the Onion OLED Expansion
+
+@@
+
+
