@@ -1,4 +1,4 @@
-# Onion Omega2 & Omega2S Firmware Build System
+# Onion Omega2 & Omega2S Firmware Build System for Newracom NRC7292
 
 This buildsystem for the OpenWRT Linux distribution has been modified by Onion Corporation to build firmware for the Onion Omega2 and Omega2S family of devices.
 
