@@ -6,11 +6,18 @@
 / {
 	compatible = "onion,omega2", "mediatek,mt7628an-soc";
 
+	aliases {
+		led-boot = &system_led;
+		led-failsafe = &system_led;
+		led-running = &system_led;
+		led-upgrade = &system_led;
+	};
+
 	chosen {
 		bootargs = "console=ttyS0,115200";
 	};
 
-	gpio-leds {
+	leds {
 		compatible = "gpio-leds";
 
 		system_led: system {
@@ -18,10 +25,8 @@
 		};
 	};
 
-	gpio-keys-polled {
+	keys {
 		compatible = "gpio-keys-polled";
-		#address-cells = <1>;
-		#size-cells = <0>;
 		poll-interval = <20>;
 
 		reset {
@@ -30,11 +35,6 @@
 			linux,code = <KEY_RESTART>;
 		};
 	};
-
-//	nrc7292 {
-//		label = "spi_gpio_irq";
-//		gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
-//	};
 };
 
 &pinctrl {
@@ -105,43 +105,39 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&spi_pins>, <&spi_cs1_pins>;
 
-	flash: m25p80@0 {
-		#address-cells = <1>;
-		#size-cells = <1>;
+	m25p80@0 {
 		compatible = "jedec,spi-nor";
 		reg = <0>;
 		spi-max-frequency = <40000000>;
-		m25p,chunked-io = <31>;
 
-		partition@0 {
-			label = "u-boot";
-			reg = <0x0 0x30000>;
-			read-only;
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "u-boot";
+				reg = <0x0 0x30000>;
+				read-only;
+			};
+
+			partition@30000 {
+				label = "u-boot-env";
+				reg = <0x30000 0x10000>;
+				read-only;
+			};
+
+			factory: partition@40000 {
+				label = "factory";
+				reg = <0x40000 0x10000>;
+				read-only;
+			};
+
+			firmware: partition@50000 {
+				compatible = "denx,uimage";
+				label = "firmware";
+			};
 		};
-
-		partition@30000 {
-			label = "u-boot-env";
-			reg = <0x30000 0x10000>;
-			read-only;
-		};
-
-		factory: partition@40000 {
-			label = "factory";
-			reg = <0x40000 0x10000>;
-		};
-
-		firmware: partition@50000 {
-			label = "firmware";
-		};
-	};
-
-	spidev@1 {
-		status = "disabled";
-		#address-cells = <1>;
-		#size-cells = <1>;
-		compatible = "rohm,dh2228fv";
-		reg = <1>;
-		spi-max-frequency = <40000000>;
 	};
 };
 
@@ -167,9 +163,5 @@
 };
 
 &wmac {
-	status = "okay";
-};
-
-&pwm {
 	status = "okay";
 };

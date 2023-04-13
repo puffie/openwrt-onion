@@ -5,9 +5,10 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=$(PROJECT_GIT)/project/ubus.git
-PKG_SOURCE_DATE:=2018-07-26
-PKG_SOURCE_VERSION:=40e0931e70bfe198690a7dac43b32fad06f46ef9
-PKG_MIRROR_HASH:=ddf8a42ff9a88a81b87058887d79a4eea6f2d606a29f168422d41112702793e5
+PKG_SOURCE_DATE:=2021-07-01
+PKG_SOURCE_VERSION:=38c7fdd8991366cd2f9ccbc47625f9b51b1d318a
+PKG_MIRROR_HASH:=5ff9baa2ba3c7b2b53a477ed2a0f3dd8828051389f3d759cf5a694fbccc4c05b
+PKG_ABI_VERSION:=20210603
 CMAKE_INSTALL:=1
 
 PKG_LICENSE:=LGPL-2.1
@@ -36,7 +37,7 @@ define Package/libubus
   SECTION:=libs
   CATEGORY:=Libraries
   DEPENDS:=+libubox
-  ABI_VERSION:=$(PKG_VERSION)
+  ABI_VERSION:=$(PKG_ABI_VERSION)
   TITLE:=OpenWrt RPC client library
 endef
 
@@ -47,10 +48,12 @@ define Package/libubus-lua
   TITLE:=Lua binding for the OpenWrt RPC client
 endef
 
-TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include
+TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include -flto
+TARGET_LDFLAGS += -flto
 
 CMAKE_OPTIONS = \
-	-DLUAPATH=/usr/lib/lua
+	-DLUAPATH=/usr/lib/lua \
+	-DABIVERSION="$(PKG_ABI_VERSION)"
 
 define Package/ubus/install
 	$(INSTALL_DIR) $(1)/bin
@@ -64,7 +67,7 @@ endef
 
 define Package/libubus/install
 	$(INSTALL_DIR) $(1)/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.so $(1)/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libubus.so.* $(1)/lib/
 endef
 
 define Package/libubus-lua/install

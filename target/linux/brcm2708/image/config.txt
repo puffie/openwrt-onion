@@ -959,3 +959,11 @@ dtparam=spi=on
 #dtoverlay=rpi-dac
 #dtoverlay=rpi-proto
 #dtoverlay=rra-digidac1-wm8741-audio
+
+#
+# newracom
+#
+dtoverlay=pi3-disable-bt
+dtoverlay=pi3-disable-wifi
+dtoverlay=pi3-disable-spidev
+

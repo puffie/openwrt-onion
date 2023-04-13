@@ -12,6 +12,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/linux4sam/u-boot-at91.git
+PKG_MIRROR_HASH:=03ae55f16e716c2c06481372174f9d8506fa077459bf321a024e0d23a9bb013a
 PKG_SOURCE_VERSION:=59f202622154f82e708a6ca2bf86350a5c1b2d33
 
 include $(INCLUDE_DIR)/u-boot.mk
@@ -26,13 +27,13 @@ endef
 
 define U-Boot/at91sam9m10g45ek_nandflash
   NAME:=AT91SAM9M10G45-EK board (NandFlash)
-  BUILD_SUBTARGET:=legacy
+  BUILD_SUBTARGET:=sam9x
   BUILD_DEVICES:=at91sam9m10g45ek
 endef
 
 define U-Boot/at91sam9x5ek_nandflash
   NAME:=AT91SAM9X5-EK board (NandFlash)
-  BUILD_SUBTARGET:=legacy
+  BUILD_SUBTARGET:=sam9x
   BUILD_DEVICES:=at91sam9g15ek at91sam9g25ek \
                  at91sam9g35ek at91sam9x25ek \
 				 at91sam9x35ek
@@ -40,67 +41,67 @@ endef
 
 define U-Boot/sama5d3_xplained_nandflash
   NAME:=SAMA5D3 Xplained board (NandFlash)
-  BUILD_SUBTARGET:=sama5d3
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d3_xplained
 endef
 
 define U-Boot/sama5d3_xplained_mmc
   NAME:=SAMA5D3 Xplained board (SDcard)
-  BUILD_SUBTARGET:=sama5d3
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d3_xplained
 endef
 
 define U-Boot/sama5d2_xplained_spiflash
   NAME:=SAMA5D2 Xplained board (SPI Flash)
-  BUILD_SUBTARGET:=sama5d2
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d2_xplained
 endef
 
 define U-Boot/sama5d2_xplained_mmc
   NAME:=SAMA5D2 Xplained board (SDcard/EMMC)
-  BUILD_SUBTARGET:=sama5d2
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d2_xplained
 endef
 
 define U-Boot/sama5d4_xplained_spiflash
   NAME:=SAMA5D4 Xplained board (SPI Flash)
-  BUILD_SUBTARGET:=sama5d4
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d4_xplained
 endef
 
 define U-Boot/sama5d4_xplained_mmc
   NAME:=SAMA5D4 Xplained board (SDcard)
-  BUILD_SUBTARGET:=sama5d4
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d4_xplained
 endef
 
 define U-Boot/sama5d4_xplained_nandflash
   NAME:=SAMA5D4 Xplained board (NandFlash)
-  BUILD_SUBTARGET:=sama5d4
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d4_xplained
 endef
 
 define U-Boot/sama5d27_som1_ek_mmc
   NAME:=SAMA5D27 SOM1 Ek (SDCard)
-  BUILD_SUBTARGET:=sama5d2
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d27_som1_ek
 endef
 
 define U-Boot/sama5d27_som1_ek_spiflash
   NAME:=SAMA5D27 SOM1 Ek (QSPI Flash)
-  BUILD_SUBTARGET:=sama5d2
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d27_som1_ek
 endef
 
 define U-Boot/sama5d2_ptc_ek_nandflash
   NAME:=SAMA5D2 PTC Ek (Nand Flash)
-  BUILD_SUBTARGET:=sama5d2
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d2_ptc_ek
 endef
 
 define U-Boot/sama5d2_ptc_ek_mmc
   NAME:=SAMA5D2 PTC Ek (SDCard)
-  BUILD_SUBTARGET:=sama5d2
+  BUILD_SUBTARGET:=sama5
   BUILD_DEVICES:=at91-sama5d2_ptc_ek
 endef
 

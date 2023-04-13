@@ -56,35 +56,13 @@ $(eval $(call KernelPackage,backlight-pwm))
 
 define KernelPackage/fb
   SUBMENU:=$(VIDEO_MENU)
-  TITLE:=Framebuffer support
+  TITLE:=Framebuffer and framebuffer console support
   DEPENDS:=@DISPLAY_SUPPORT
   KCONFIG:= \
 	CONFIG_FB \
 	CONFIG_FB_MXS=n \
-	CONFIG_FB_SM750=n
-  FILES:=$(LINUX_DIR)/drivers/video/fbdev/core/fb.ko \
-	$(LINUX_DIR)/lib/fonts/font.ko
-  AUTOLOAD:=$(call AutoLoad,06,fb font)
-endef
-
-define KernelPackage/fb/description
- Kernel support for framebuffers
-endef
-
-define KernelPackage/fb/x86
-  FILES+=$(LINUX_DIR)/arch/x86/video/fbdev.ko
-  AUTOLOAD+=$(call AutoLoad,06,fbdev fb)
-endef
-
-$(eval $(call KernelPackage,fb))
-
-
-define KernelPackage/fbcon
-  SUBMENU:=$(VIDEO_MENU)
-  TITLE:=Framebuffer Console support
-  DEPENDS:=+kmod-fb @!LINUX_4_14
-  KCONFIG:= \
-	CONFIG_FRAMEBUFFER_CONSOLE \
+	CONFIG_FB_SM750=n \
+	CONFIG_FRAMEBUFFER_CONSOLE=y \
 	CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y \
 	CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y \
 	CONFIG_FONTS=y \
@@ -103,23 +81,22 @@ define KernelPackage/fbcon
 	CONFIG_CONSOLE_TRANSLATIONS=y \
 	CONFIG_VT_CONSOLE=y \
 	CONFIG_VT_HW_CONSOLE_BINDING=y
-  FILES:= \
-	$(LINUX_DIR)/drivers/video/console/bitblit.ko \
-	$(LINUX_DIR)/drivers/video/console/softcursor.ko \
-	$(LINUX_DIR)/drivers/video/console/fbcon.ko \
-	$(LINUX_DIR)/drivers/video/console/fbcon_rotate.ko \
-	$(LINUX_DIR)/drivers/video/console/fbcon_cw.ko \
-	$(LINUX_DIR)/drivers/video/console/fbcon_ud.ko \
-	$(LINUX_DIR)/drivers/video/console/fbcon_ccw.ko \
+  FILES:=$(LINUX_DIR)/drivers/video/fbdev/core/fb.ko \
 	$(LINUX_DIR)/lib/fonts/font.ko
-  AUTOLOAD:=$(call AutoLoad,94,font softcursor tileblit fbcon_cw fbcon_ud fbcon_ccw fbcon_rotate bitblit fbcon)
+  AUTOLOAD:=$(call AutoLoad,06,fb font)
 endef
 
-define KernelPackage/fbcon/description
-  Kernel support for framebuffer console
+define KernelPackage/fb/description
+ Kernel support for framebuffers and framebuffer console.
 endef
 
-$(eval $(call KernelPackage,fbcon))
+define KernelPackage/fb/x86
+  FILES+=$(LINUX_DIR)/arch/x86/video/fbdev.ko
+  AUTOLOAD:=$(call AutoLoad,06,fbdev fb font)
+endef
+
+$(eval $(call KernelPackage,fb))
+
 
 define KernelPackage/fb-cfb-fillrect
   SUBMENU:=$(VIDEO_MENU)
@@ -174,7 +151,7 @@ define KernelPackage/fb-sys-fops
   DEPENDS:=+kmod-fb
   KCONFIG:=CONFIG_FB_SYS_FOPS
   FILES:=$(LINUX_DIR)/drivers/video/fbdev/core/fb_sys_fops.ko
-  AUTOLOAD:=$(call AutoLoad,07,fbsysfops)
+  AUTOLOAD:=$(call AutoLoad,07,fb_sys_fops)
 endef
 
 define KernelPackage/fb-sys-fops/description
@@ -184,509 +161,64 @@ endef
 $(eval $(call KernelPackage,fb-sys-fops))
 
 
-define KernelPackage/fbtft-support
+define KernelPackage/fb-sys-ram
   SUBMENU:=$(VIDEO_MENU)
-  TITLE:=Framebuffer TFT and OLED support (p44/luz)
-  DEPENDS:=\
-  +kmod-fb \
-  +kmod-fb-cfb-imgblt \
-  +kmod-fb-cfb-copyarea \
-  +kmod-fb-cfb-fillrect \
-  +kmod-fb-sys-fops
+  TITLE:=Framebuffer in system RAM support
+  DEPENDS:=+kmod-fb
   KCONFIG:= \
-  CONFIG_FB \
-  CONFIG_FB_SYS_FILLRECT \
-  CONFIG_FB_SYS_COPYAREA \
-  CONFIG_FB_SYS_IMAGEBLIT \
-  CONFIG_FB_FLEX \
-  CONFIG_FB_MODE_HELPERS=y \
-  CONFIG_FB_BACKLIGHT=y \
-  CONFIG_FB_TILEBLITTING=y \
-  CONFIG_FB_BOTH_ENDIAN=y \
-  CONFIG_FB_CMDLINE=y \
-  CONFIG_FB_DEFERRED_IO=y \
-  CONFIG_FB_FOREIGN_ENDIAN=y \
-  CONFIG_FB_PROVIDE_GET_FB_UNMAPPED_AREA=n \
-  CONFIG_BACKLIGHT_LCD_SUPPORT=y \
-  CONFIG_LCD_CLASS_DEVICE=y \
-  CONFIG_LCD_PLATFORM=y \
-  CONFIG_BACKLIGHT_CLASS_DEVICE=y \
-  CONFIG_STAGING_BOARD=y \
-  CONFIG_FB_TFT \
-  CONFIG_FB_TFT_FBTFT_DEVICE=y
+	CONFIG_FB_SYS_COPYAREA \
+	CONFIG_FB_SYS_FILLRECT \
+	CONFIG_FB_SYS_IMAGEBLIT
   FILES:= \
-  $(LINUX_DIR)/drivers/video/fbdev/core/syscopyarea.ko \
-  $(LINUX_DIR)/drivers/video/fbdev/core/sysfillrect.ko \
-  $(LINUX_DIR)/drivers/video/fbdev/core/sysimgblt.ko \
-  $(LINUX_DIR)/drivers/staging/fbtft/fbtft.ko \
-  $(LINUX_DIR)/drivers/staging/fbtft/flexfb.ko \
-  $(LINUX_DIR)/drivers/staging/fbtft/fbtft_device.ko
-  AUTOLOAD:=$(call AutoLoad,07,sysfillrect syscopyarea sysimgblt fb_sys_fops fbtft)
+	$(LINUX_DIR)/drivers/video/fbdev/core/syscopyarea.ko \
+	$(LINUX_DIR)/drivers/video/fbdev/core/sysfillrect.ko \
+	$(LINUX_DIR)/drivers/video/fbdev/core/sysimgblt.ko
+  AUTOLOAD:=$(call AutoLoad,07,syscopyarea sysfillrect sysimgblt)
 endef
 
-
-define KernelPackage/fbtft-support/description
- Framebuffer TFT and OLED support (p44/luz)
- These are drivers from staging!
+define KernelPackage/fb-sys-ram/description
+ Kernel support for framebuffers in system RAM
 endef
 
-$(eval $(call KernelPackage,fbtft-support))
+$(eval $(call KernelPackage,fb-sys-ram))
 
 
-define AddDepends/fbtft-support
+define KernelPackage/fb-tft
   SUBMENU:=$(VIDEO_MENU)
-  DEPENDS+=kmod-fbtft-support $(1)
+  TITLE:=Support for small TFT LCD display modules
+  DEPENDS:= \
+	  @GPIO_SUPPORT @!LINUX_4_9 +kmod-backlight \
+	  +kmod-fb +kmod-fb-sys-fops +kmod-fb-sys-ram +kmod-spi-bitbang
+  KCONFIG:= \
+       CONFIG_FB_BACKLIGHT=y \
+       CONFIG_FB_DEFERRED_IO=y \
+       CONFIG_FB_TFT
+  FILES:= \
+       $(LINUX_DIR)/drivers/staging/fbtft/fbtft.ko
+  AUTOLOAD:=$(call AutoLoad,08,fbtft)
 endef
 
-
-define KernelPackage/fbtft-ssd1306
-  TITLE:=SSD1306 monochrome OLED driver
-  KCONFIG:=CONFIG_FB_TFT_SSD1306
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ssd1306.ko
-  $(call AddDepends/fbtft-support)
+define KernelPackage/fb-tft/description
+  Support for small TFT LCD display modules
 endef
 
-define KernelPackage/fbtft-ssd1306/description
- Kernel module for supporting Solomon systech SSD1306 based OLED/PLED displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ssd1306))
+$(eval $(call KernelPackage,fb-tft))
 
 
-define KernelPackage/fbtft-ssd1331
-  TITLE:=SSD1331 driver
-  KCONFIG:=CONFIG_FB_TFT_SSD1331
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ssd1331.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ssd1331/description
- Kernel module for supporting SSD1331 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ssd1331))
-
-
-define KernelPackage/fbtft-ili9340
-  TITLE:=ILI9340 driver
-  KCONFIG:=CONFIG_FB_TFT_ILI9340
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9340.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ili9340/description
- Kernel module for supporting ILI9340 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ili9340))
-
-
-define KernelPackage/fbtft-ili9341
-  TITLE:=ILI9341 driver
-  KCONFIG:=CONFIG_FB_TFT_ILI9341
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9341.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ili9341/description
- Kernel module for supporting ILI9341 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ili9341))
-
-
-define KernelPackage/fbtft-ssd1289
-  TITLE:=SSD1289 driver
-  KCONFIG:=CONFIG_FB_TFT_SSD1289
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ssd1289.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ssd1289/description
- Kernel module for supporting SSD1289 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ssd1289))
-
-
-define KernelPackage/fbtft-ssd1305
-  TITLE:=SSD1305 driver
-  KCONFIG:=CONFIG_FB_TFT_SSD1305
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ssd1305.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ssd1305/description
- Kernel module for supporting SSD1305 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ssd1305))
-
-
-define KernelPackage/fbtft-ssd1325
-  TITLE:=SSD1325 driver
-  KCONFIG:=CONFIG_FB_TFT_SSD1325
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ssd1325.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ssd1325/description
- Kernel module for supporting SSD1325 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ssd1325))
-
-
-define KernelPackage/fbtft-ssd1351
-  TITLE:=SSD1351 driver
-  KCONFIG:=CONFIG_FB_TFT_SSD1351
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ssd1351.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ssd1351/description
- Kernel module for supporting SSD1351 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ssd1351))
-
-
-define KernelPackage/fbtft-ili9163
-  TITLE:=ILI9163 driver
-  KCONFIG:=CONFIG_FB_TFT_ILI9163
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9163.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ili9163/description
- Kernel module for supporting ILI9163 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ili9163))
-
-
-define KernelPackage/fbtft-ili9320
-  TITLE:=ILI9320 driver
-  KCONFIG:=CONFIG_FB_TFT_ILI9320
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9320.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ili9320/description
- Kernel module for supporting ILI9320 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ili9320))
-
-
-define KernelPackage/fbtft-ili9325
-  TITLE:=ILI9325 driver
-  KCONFIG:=CONFIG_FB_TFT_ILI9325
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9325.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ili9325/description
- Kernel module for supporting ILI9325 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ili9325))
-
-
-define KernelPackage/fbtft-ili9481
-  TITLE:=ILI9481 driver
-  KCONFIG:=CONFIG_FB_TFT_ILI9481
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9481.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ili9481/description
- Kernel module for supporting ILI9481 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ili9481))
-
-
-define KernelPackage/fbtft-ili9486
-  TITLE:=ILI9486 driver
+define KernelPackage/fb-tft-ili9486
+  SUBMENU:=$(VIDEO_MENU)
+  TITLE:=FB driver for the ILI9486 LCD Controller
+  DEPENDS:=+kmod-fb-tft
   KCONFIG:=CONFIG_FB_TFT_ILI9486
   FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ili9486.ko
-  $(call AddDepends/fbtft-support)
+  AUTOLOAD:=$(call AutoLoad,09,fb_ili9486)
 endef
 
-define KernelPackage/fbtft-ili9486/description
- Kernel module for supporting ILI9486 displays
+define KernelPackage/fb-tft-ili9486/description
+  FB driver for the ILI9486 LCD Controller
 endef
 
-$(eval $(call KernelPackage,fbtft-ili9486))
-
-
-define KernelPackage/fbtft-agm1264k_fl
-  TITLE:=AGM1264K_FL driver
-  KCONFIG:=CONFIG_FB_TFT_AGM1264K_FL
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_agm1264k_fl.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-agm1264k_fl/description
- Kernel module for supporting AGM1264K_FL displays
-endef
-
-$(eval $(call KernelPackage,fbtft-agm1264k_fl))
-
-
-define KernelPackage/fbtft-bd663474
-  TITLE:=BD663474 driver
-  KCONFIG:=CONFIG_FB_TFT_BD663474
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_bd663474.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-bd663474/description
- Kernel module for supporting BD663474 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-bd663474))
-
-
-define KernelPackage/fbtft-hx8340bn
-  TITLE:=HX8340BN driver
-  KCONFIG:=CONFIG_FB_TFT_HX8340BN
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_hx8340bn.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-hx8340bn/description
- Kernel module for supporting HX8340BN displays
-endef
-
-$(eval $(call KernelPackage,fbtft-hx8340bn))
-
-
-define KernelPackage/fbtft-hx8347d
-  TITLE:=HX8347D driver
-  KCONFIG:=CONFIG_FB_TFT_HX8347D
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_hx8347d.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-hx8347d/description
- Kernel module for supporting HX8347D displays
-endef
-
-$(eval $(call KernelPackage,fbtft-hx8347d))
-
-
-define KernelPackage/fbtft-hx8353d
-  TITLE:=HX8353D driver
-  KCONFIG:=CONFIG_FB_TFT_HX8353D
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_hx8353d.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-hx8353d/description
- Kernel module for supporting HX8353D displays
-endef
-
-$(eval $(call KernelPackage,fbtft-hx8353d))
-
-
-define KernelPackage/fbtft-hx8357d
-  TITLE:=HX8357D driver
-  KCONFIG:=CONFIG_FB_TFT_HX8357D
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_hx8357d.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-hx8357d/description
- Kernel module for supporting HX8357D displays
-endef
-
-$(eval $(call KernelPackage,fbtft-hx8357d))
-
-
-define KernelPackage/fbtft-pcd8544
-  TITLE:=PCD8544 driver
-  KCONFIG:=CONFIG_FB_TFT_PCD8544
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_pcd8544.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-pcd8544/description
- Kernel module for supporting PCD8544 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-pcd8544))
-
-
-define KernelPackage/fbtft-ra8875
-  TITLE:=RA8875 driver
-  KCONFIG:=CONFIG_FB_TFT_RA8875
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_ra8875.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-ra8875/description
- Kernel module for supporting RA8875 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-ra8875))
-
-
-define KernelPackage/fbtft-s6d02a1
-  TITLE:=S6D02A1 driver
-  KCONFIG:=CONFIG_FB_TFT_S6D02A1
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_s6d02a1.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-s6d02a1/description
- Kernel module for supporting S6D02A1 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-s6d02a1))
-
-
-define KernelPackage/fbtft-s6d1121
-  TITLE:=S6D1121 driver
-  KCONFIG:=CONFIG_FB_TFT_S6D1121
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_s6d1121.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-s6d1121/description
- Kernel module for supporting S6D1121 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-s6d1121))
-
-
-define KernelPackage/fbtft-sh1106
-  TITLE:=SH1106 driver
-  KCONFIG:=CONFIG_FB_TFT_SH1106
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_sh1106.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-sh1106/description
- Kernel module for supporting SH1106 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-sh1106))
-
-
-define KernelPackage/fbtft-st7735r
-  TITLE:=ST7735R driver
-  KCONFIG:=CONFIG_FB_TFT_ST7735R
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_st7735r.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-st7735r/description
- Kernel module for supporting ST7735R displays
-endef
-
-$(eval $(call KernelPackage,fbtft-st7735r))
-
-
-define KernelPackage/fbtft-st7789v
-  TITLE:=ST7789V driver
-  KCONFIG:=CONFIG_FB_TFT_ST7789V
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_st7789v.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-st7789v/description
- Kernel module for supporting ST7789V displays
-endef
-
-$(eval $(call KernelPackage,fbtft-st7789v))
-
-
-define KernelPackage/fbtft-tinylcd
-  TITLE:=TINYLCD driver
-  KCONFIG:=CONFIG_FB_TFT_TINYLCD
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_tinylcd.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-tinylcd/description
- Kernel module for supporting TINYLCD displays
-endef
-
-$(eval $(call KernelPackage,fbtft-tinylcd))
-
-
-define KernelPackage/fbtft-tls8204
-  TITLE:=TLS8204 driver
-  KCONFIG:=CONFIG_FB_TFT_TLS8204
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_tls8204.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-tls8204/description
- Kernel module for supporting TLS8204 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-tls8204))
-
-
-define KernelPackage/fbtft-uc1611
-  TITLE:=UC1611 driver
-  KCONFIG:=CONFIG_FB_TFT_UC1611
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_uc1611.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-uc1611/description
- Kernel module for supporting UC1611 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-uc1611))
-
-
-define KernelPackage/fbtft-uc1701
-  TITLE:=UC1701 driver
-  KCONFIG:=CONFIG_FB_TFT_UC1701
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_uc1701.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-uc1701/description
- Kernel module for supporting UC1701 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-uc1701))
-
-
-define KernelPackage/fbtft-upd161704
-  TITLE:=UPD161704 driver
-  KCONFIG:=CONFIG_FB_TFT_UPD161704
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_upd161704.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-upd161704/description
- Kernel module for supporting UPD161704 displays
-endef
-
-$(eval $(call KernelPackage,fbtft-upd161704))
-
-
-define KernelPackage/fbtft-watterott
-  TITLE:=WATTEROTT driver
-  KCONFIG:=CONFIG_FB_TFT_WATTEROTT
-  FILES:=$(LINUX_DIR)/drivers/staging/fbtft/fb_watterott.ko
-  $(call AddDepends/fbtft-support)
-endef
-
-define KernelPackage/fbtft-watterott/description
- Kernel module for supporting WATTEROTT displays
-endef
-
-$(eval $(call KernelPackage,fbtft-watterott))
-
-
+$(eval $(call KernelPackage,fb-tft-ili9486))
 
 
 define KernelPackage/drm
@@ -695,7 +227,9 @@ define KernelPackage/drm
   HIDDEN:=1
   DEPENDS:=+kmod-dma-buf +kmod-i2c-core
   KCONFIG:=CONFIG_DRM
-  FILES:=$(LINUX_DIR)/drivers/gpu/drm/drm.ko
+  FILES:= \
+	$(LINUX_DIR)/drivers/gpu/drm/drm.ko \
+	$(LINUX_DIR)/drivers/gpu/drm/drm_panel_orientation_quirks.ko@ge4.15
   AUTOLOAD:=$(call AutoLoad,05,drm)
 endef
 
@@ -705,10 +239,67 @@ endef
 
 $(eval $(call KernelPackage,drm))
 
+define KernelPackage/drm-ttm
+  SUBMENU:=$(VIDEO_MENU)
+  TITLE:=GPU memory management subsystem
+  DEPENDS:=@DISPLAY_SUPPORT +kmod-drm
+  KCONFIG:=CONFIG_DRM_TTM
+  FILES:=$(LINUX_DIR)/drivers/gpu/drm/ttm/ttm.ko
+  AUTOLOAD:=$(call AutoProbe,ttm)
+endef
+
+define KernelPackage/drm-ttm/description
+  GPU memory management subsystem for devices with multiple GPU memory types.
+  Will be enabled automatically if a device driver uses it.
+endef
+
+$(eval $(call KernelPackage,drm-ttm))
+
+define KernelPackage/drm-kms-helper
+  SUBMENU:=$(VIDEO_MENU)
+  TITLE:=CRTC helpers for KMS drivers
+  DEPENDS:=@DISPLAY_SUPPORT +kmod-drm +kmod-fb +kmod-fb-sys-fops +kmod-fb-cfb-copyarea \
+	+kmod-fb-cfb-fillrect +kmod-fb-cfb-imgblt +kmod-fb-sys-ram
+  KCONFIG:= \
+    CONFIG_DRM_KMS_HELPER \
+    CONFIG_DRM_KMS_FB_HELPER=y
+  FILES:=$(LINUX_DIR)/drivers/gpu/drm/drm_kms_helper.ko
+  AUTOLOAD:=$(call AutoProbe,drm_kms_helper)
+endef
+
+define KernelPackage/drm-kms-helper/description
+  CRTC helpers for KMS drivers.
+endef
+
+$(eval $(call KernelPackage,drm-kms-helper))
+
+define KernelPackage/drm-amdgpu
+  SUBMENU:=$(VIDEO_MENU)
+  TITLE:=AMDGPU DRM support
+  DEPENDS:=@TARGET_x86 @DISPLAY_SUPPORT +kmod-backlight +kmod-drm-ttm \
+	+kmod-drm-kms-helper +kmod-i2c-algo-bit +amdgpu-firmware
+  KCONFIG:=CONFIG_DRM_AMDGPU \
+	CONFIG_DRM_AMDGPU_SI=y \
+	CONFIG_DRM_AMDGPU_CIK=y \
+	CONFIG_DRM_AMD_DC=y \
+	CONFIG_DEBUG_KERNEL_DC=n
+  FILES:=$(LINUX_DIR)/drivers/gpu/drm/amd/amdgpu/amdgpu.ko \
+	$(LINUX_DIR)/drivers/gpu/drm/scheduler/gpu-sched.ko@ge4.15 \
+	$(LINUX_DIR)/drivers/gpu/drm/amd/lib/chash.ko@ge4.15
+  AUTOLOAD:=$(call AutoProbe,amdgpu)
+endef
+
+define KernelPackage/drm-amdgpu/description
+  Direct Rendering Manager (DRM) support for AMDGPU Cards
+endef
+
+$(eval $(call KernelPackage,drm-amdgpu))
+
+
 define KernelPackage/drm-imx
   SUBMENU:=$(VIDEO_MENU)
   TITLE:=Freescale i.MX DRM support
-  DEPENDS:=@TARGET_imx6 +kmod-drm +kmod-fb +kmod-fb-cfb-copyarea +kmod-fb-cfb-imgblt +kmod-fb-cfb-fillrect +kmod-fb-sys-fops
+  DEPENDS:=@TARGET_imx6 +kmod-drm-kms-helper
   KCONFIG:=CONFIG_DRM_IMX \
 	CONFIG_DRM_FBDEV_EMULATION=y \
 	CONFIG_DRM_FBDEV_OVERALLOC=100 \
@@ -716,11 +307,6 @@ define KernelPackage/drm-imx
 	CONFIG_RESET_CONTROLLER=y \
 	CONFIG_DRM_IMX_IPUV3 \
 	CONFIG_IMX_IPUV3 \
-	CONFIG_DRM_KMS_HELPER \
-	CONFIG_FB_SYS_FILLRECT \
-	CONFIG_FB_SYS_COPYAREA \
-	CONFIG_FB_SYS_IMAGEBLIT \
-	CONFIG_DRM_KMS_FB_HELPER=y \
 	CONFIG_DRM_GEM_CMA_HELPER=y \
 	CONFIG_DRM_KMS_CMA_HELPER=y \
 	CONFIG_DRM_IMX_FB_HELPER \
@@ -730,12 +316,8 @@ define KernelPackage/drm-imx
 	CONFIG_DRM_IMX_HDMI=n
   FILES:= \
 	$(LINUX_DIR)/drivers/gpu/drm/imx/imxdrm.ko \
-	$(LINUX_DIR)/drivers/gpu/ipu-v3/imx-ipu-v3.ko \
-	$(LINUX_DIR)/drivers/video/fbdev/core/syscopyarea.ko \
-	$(LINUX_DIR)/drivers/video/fbdev/core/sysfillrect.ko \
-	$(LINUX_DIR)/drivers/video/fbdev/core/sysimgblt.ko \
-	$(LINUX_DIR)/drivers/gpu/drm/drm_kms_helper.ko
-  AUTOLOAD:=$(call AutoLoad,05,imxdrm imx-ipu-v3 imx-ipuv3-crtc)
+	$(LINUX_DIR)/drivers/gpu/ipu-v3/imx-ipu-v3.ko
+  AUTOLOAD:=$(call AutoLoad,08,imxdrm imx-ipu-v3 imx-ipuv3-crtc)
 endef
 
 define KernelPackage/drm-imx/description
@@ -755,7 +337,7 @@ define KernelPackage/drm-imx-hdmi
 	$(LINUX_DIR)/drivers/gpu/drm/bridge/synopsys/dw-hdmi.ko \
 	$(LINUX_DIR)/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.ko \
 	$(LINUX_DIR)/drivers/gpu/drm/imx/dw_hdmi-imx.ko
-  AUTOLOAD:=$(call AutoLoad,05,dw-hdmi dw-hdmi-ahb-audio.ko dw_hdmi-imx)
+  AUTOLOAD:=$(call AutoLoad,08,dw-hdmi dw-hdmi-ahb-audio.ko dw_hdmi-imx)
 endef
 
 define KernelPackage/drm-imx-hdmi/description
@@ -780,7 +362,7 @@ define KernelPackage/drm-imx-ldb
 	CONFIG_DRM_PANEL_SITRONIX_ST7789V=n
   FILES:=$(LINUX_DIR)/drivers/gpu/drm/imx/imx-ldb.ko \
 	$(LINUX_DIR)/drivers/gpu/drm/panel/panel-simple.ko
-  AUTOLOAD:=$(call AutoLoad,05,imx-ldb)
+  AUTOLOAD:=$(call AutoLoad,08,imx-ldb)
 endef
 
 define KernelPackage/drm-imx-ldb/description
@@ -789,6 +371,21 @@ endef
 
 $(eval $(call KernelPackage,drm-imx-ldb))
 
+define KernelPackage/drm-radeon
+  SUBMENU:=$(VIDEO_MENU)
+  TITLE:=Radeon DRM support
+  DEPENDS:=@TARGET_x86 @DISPLAY_SUPPORT +kmod-backlight +kmod-drm-kms-helper \
+	+kmod-drm-ttm +kmod-i2c-algo-bit +radeon-firmware
+  KCONFIG:=CONFIG_DRM_RADEON
+  FILES:=$(LINUX_DIR)/drivers/gpu/drm/radeon/radeon.ko
+  AUTOLOAD:=$(call AutoProbe,radeon)
+endef
+
+define KernelPackage/drm-radeon/description
+  Direct Rendering Manager (DRM) support for Radeon Cards
+endef
+
+$(eval $(call KernelPackage,drm-radeon))
 
 #
 # Video Capture
@@ -842,10 +439,14 @@ define KernelPackage/video-videobuf2
 	CONFIG_VIDEOBUF2_MEMOPS \
 	CONFIG_VIDEOBUF2_VMALLOC
   FILES:= \
-	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-core.ko \
-	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-v4l2.ko@ge4.4 \
-	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-memops.ko \
-	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-vmalloc.ko
+	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-core.ko@lt4.16 \
+	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-v4l2.ko@lt4.16 \
+	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-memops.ko@lt4.16 \
+	$(LINUX_DIR)/drivers/media/$(V4L2_DIR)/videobuf2-vmalloc.ko@lt4.16 \
+	$(LINUX_DIR)/drivers/media/common/videobuf2/videobuf2-common.ko@ge4.16 \
+	$(LINUX_DIR)/drivers/media/common/videobuf2/videobuf2-v4l2.ko@ge4.16 \
+	$(LINUX_DIR)/drivers/media/common/videobuf2/videobuf2-memops.ko@ge4.16 \
+	$(LINUX_DIR)/drivers/media/common/videobuf2/videobuf2-vmalloc.ko@ge4.16
   AUTOLOAD:=$(call AutoLoad,65,videobuf2-core videobuf-v4l2@ge4.4 videobuf2-memops videobuf2-vmalloc)
   $(call AddDepends/video)
 endef
@@ -910,7 +511,7 @@ $(eval $(call KernelPackage,video-uvc))
 define KernelPackage/video-gspca-core
   MENU:=1
   TITLE:=GSPCA webcam core support framework
-  DEPENDS:=@USB_SUPPORT +kmod-usb-core +kmod-input-core
+  DEPENDS:=@USB_SUPPORT +kmod-usb-core +kmod-input-core +LINUX_4_19:kmod-video-videobuf2
   KCONFIG:=CONFIG_USB_GSPCA
   FILES:=$(LINUX_DIR)/drivers/media/$(V4L2_USB_DIR)/gspca/gspca_main.ko
   AUTOLOAD:=$(call AutoProbe,gspca_main)
@@ -1389,7 +990,7 @@ define KernelPackage/video-gspca-gl860
   $(call AddDepends/camera-gspca)
 endef
 
-define KernelPackage/video-gspca-gl800/description
+define KernelPackage/video-gspca-gl860/description
  The GL860 USB Camera Driver (gl860) kernel module
 endef
 

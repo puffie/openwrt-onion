@@ -12,9 +12,9 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=$(PROJECT_GIT)/project/uhttpd.git
-PKG_SOURCE_DATE:=2018-06-26
-PKG_SOURCE_VERSION:=796d42bceed2015bb00309a3bf0f49279b070c19
-PKG_MIRROR_HASH:=b9c79a74a112a5a2551012aa30a072121198f44d308f12948faeb792f0c6410a
+PKG_SOURCE_DATE:=2020-10-01
+PKG_SOURCE_VERSION:=3abcc89103799aaa79870fffcd58ec4370815024
+PKG_MIRROR_HASH:=755863ef113648c7f4863b5ac93593e7a8c46f1937217641d0ec4bde34e45883
 PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
 PKG_LICENSE:=ISC
 
@@ -34,7 +34,7 @@ endef
 
 define Package/uhttpd
   $(Package/uhttpd/default)
-  DEPENDS:=+libubox +libblobmsg-json +libjson-script
+  DEPENDS:=+libubox +libblobmsg-json +libjson-script +libjson-c
 endef
 
 define Package/uhttpd/description
@@ -105,16 +105,6 @@ define Package/uhttpd-mod-ubus/install
 	$(INSTALL_DIR) $(1)/usr/lib $(1)/etc/uci-defaults
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/uhttpd_ubus.so $(1)/usr/lib/
 	$(INSTALL_DATA) ./files/ubus.default $(1)/etc/uci-defaults/00_uhttpd_ubus
-endef
-
-define Package/uhttpd-mod-lua/postinst
-	$(if $(CONFIG_uhttpd_lua),
-	#!/bin/sh
-	if [ -f $${IPKG_INSTROOT}/www/index.html ]
-	then
-		sed -e 's:/cgi-bin::g' -i $${IPKG_INSTROOT}/www/index.html
-	fi
-	,)
 endef
 
 

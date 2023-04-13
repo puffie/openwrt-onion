@@ -1,6 +1,6 @@
 #!/bin/sh /etc/rc.common
 
-START=14
+START=80
 
 USE_PROCD=1
 PROG=/sbin/blockd
